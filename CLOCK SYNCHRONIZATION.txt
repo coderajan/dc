@@ -1,0 +1,77 @@
+import java.util.ArrayList; 
+import java.util.List; 
+import java.util.Random;
+
+
+class Machine {
+    private int id;
+    private int clock;
+
+    public Machine(int id) {
+        this.id = id;
+        this.clock = new Random().nextInt(100); // Initialize clock with random value
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getClock() {
+        return clock;
+    }
+
+    public void setClock(int clock) {
+        this.clock = clock;
+    }
+}
+public class BerkeleyAlgorithm {
+    private List<Machine> machines; public BerkeleyAlgorithm(int
+numMachines) {
+machines = new ArrayList<>(); 
+for (int i = 0; i < numMachines;i++)
+{
+machines.add(new Machine(i));
+    
+}
+    
+}
+public void synchronizeClocks() 
+{ 
+    int sum = 0;
+for (Machine machine : machines)
+{	sum += machine.getClock();
+    
+}
+int average = sum /
+machines.size();
+for (Machine machine : machines)
+{
+machine.setClock(average);} } public void printClocks() {
+for (Machine machine : machines)
+{
+System.out.println("Machine "+ machine.getId() + ": Clock = " + machine.getClock());}}
+public static void main(String[] args){
+    BerkeleyAlgorithm algorithm = new
+BerkeleyAlgorithm(5); // Number of machines
+System.out.println("Before synchronization:");
+algorithm.printClocks(); algorithm.synchronizeClocks();
+System.out.println("\nAfter synchronization:");
+algorithm.printClocks(); 
+    
+}
+}
+
+OP:
+BEFORE SYNCHRONIZATION
+MACHINE  0  CLOCK=96
+MACHINE  1  CLOCK=60
+MACHINE  2  CLOCK=87
+MACHINE  3  CLOCK=14
+MACHINE  4  CLOCK=35
+
+AFTER 
+MACHINE  0  CLOCK=58
+MACHINE  1  CLOCK=58
+MACHINE  2  CLOCK=58
+MACHINE  3  CLOCK=58
+MACHINE  4  CLOCK=58
